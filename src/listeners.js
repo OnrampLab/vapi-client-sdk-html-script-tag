@@ -9,10 +9,16 @@ export function defaultListeners(vapi, button, assistant, assistantOverrides, sq
       isActiveCall = false;
     } else {
       if(assistant || assistantOverrides) {
-        vapi.start(assistant, assistantOverrides);
+        vapi.start(assistant, assistantOverrides)
+          .then((webCall) => {
+            window.currentCall = webCall;
+          })
       } else {
         console.log('squad ,', squad, assistant, assistantOverrides)
         vapi.start(undefined, undefined, squad)
+          .then((webCall) => {
+            window.currentCall = webCall;
+          })
       }
       isActiveCall = true;
     }
